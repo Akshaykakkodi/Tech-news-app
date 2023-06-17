@@ -49,7 +49,7 @@ class MyBottomSheetLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(20),
           topLeft: Radius.circular(20)
@@ -74,7 +74,7 @@ class MyBottomSheetLayout extends StatelessWidget {
                     recognizer: TapGestureRecognizer()
                       ..onTap=(){
                       print(url);
-                      _launchUrl(url);
+                      _launchURL(url);
                       }
                       ,style: GoogleFonts.lato(
                     color: Colors.blue.shade400
@@ -93,12 +93,14 @@ class MyBottomSheetLayout extends StatelessWidget {
 }
 
 
-Future<void> _launchUrl(String url) async {
-  final Uri uri = Uri.parse(url);
+_launchURL(String url) async {
+  final uri = Uri.parse(url);
   if (await canLaunchUrl(uri)) {
+    // Launch the URL in the user's default browser.
     await launchUrl(uri);
   } else {
-    throw Exception('Could not launch $url');
+    // Throw an error if the URL could not be launched.
+    throw 'Could not launch $url';
   }
 }
 
